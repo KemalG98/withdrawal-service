@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// Test 6: Concurrent withdrawals — only those that fit the balance should succeed
+// Test 6: Concurrent withdrawals only those that fit the balance should succeed
 func TestCreateWithdrawal_Concurrent(t *testing.T) {
 	r, pool := newTestServer(t)
 	_ = pool

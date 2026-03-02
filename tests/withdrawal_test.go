@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
@@ -108,7 +107,7 @@ func TestCreateWithdrawal_InsufficientFunds(t *testing.T) {
 	}
 }
 
-// Test 3: Idempotency — same key same payload → same result
+// Test 3: Idempotency same key same payload → same result
 func TestCreateWithdrawal_Idempotency_SamePayload(t *testing.T) {
 	r, _ := newTestServer(t)
 	key := uuid.NewString()
@@ -144,7 +143,7 @@ func TestCreateWithdrawal_Idempotency_SamePayload(t *testing.T) {
 	}
 }
 
-// Test 4: Idempotency — same key different payload → 422
+// Test 4: Idempotency same key different payload → 422
 func TestCreateWithdrawal_Idempotency_DifferentPayload(t *testing.T) {
 	r, _ := newTestServer(t)
 	key := uuid.NewString()

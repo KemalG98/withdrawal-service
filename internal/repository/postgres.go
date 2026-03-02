@@ -35,7 +35,7 @@ func payloadHash(req domain.CreateWithdrawalRequest) string {
 //  5. Inserts ledger entry
 //
 // Idempotency is enforced via UNIQUE(user_id, idempotency_key).
-// On conflict we compare payload hashes — same payload returns existing row, different payload returns ErrIdempotencyConflict.
+// On conflict we compare payload hashes same payload returns existing row, different payload returns ErrIdempotencyConflict.
 func (r *PostgresRepo) CreateWithdrawal(ctx context.Context, req domain.CreateWithdrawalRequest) (*domain.Withdrawal, error) {
 	amount, err := decimal.NewFromString(req.Amount)
 	if err != nil || !amount.IsPositive() {
@@ -50,7 +50,7 @@ func (r *PostgresRepo) CreateWithdrawal(ctx context.Context, req domain.CreateWi
 	}
 	defer tx.Rollback(ctx)
 
-	// Lock balance row — prevents concurrent transactions from reading stale balance
+	// Lock balance row prevents concurrent transactions from reading stale balance
 	var balance decimal.Decimal
 	err = tx.QueryRow(ctx,
 		`SELECT amount FROM balances WHERE user_id = $1 FOR UPDATE`,
